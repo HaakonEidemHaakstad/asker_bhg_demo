@@ -1,2 +1,1 @@
-# asker_bhg_demo
-# asker_bhg_demo
+Demo for søknad.
