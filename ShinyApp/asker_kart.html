@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_371d65fcddcb65af4aa65479288c0a91 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_371d65fcddcb65af4aa65479288c0a91" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_371d65fcddcb65af4aa65479288c0a91 = L.map(
+                "map_371d65fcddcb65af4aa65479288c0a91",
+                {
+                    center: [59.7069, 10.4366],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b5b7341666478a61e520958efd8f715a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_b5b7341666478a61e520958efd8f715a.addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var marker_eca326414a89b13f000d69df229dd609 = L.marker(
+                [59.8608937, 10.4998746],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_de6028f48e43cdda9b8eab4709a6b01d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_eca326414a89b13f000d69df229dd609.setIcon(icon_de6028f48e43cdda9b8eab4709a6b01d);
+        
+    
+        var popup_608cbc485edd4d653e5c3c533528a835 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_3d7d6b1aec1757d4a20b4ac641bd6be4 = $(`<div id="html_3d7d6b1aec1757d4a20b4ac641bd6be4" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Landoeya<br><b>Kapasitet</b>: 42</div></div>`)[0];
+                popup_608cbc485edd4d653e5c3c533528a835.setContent(html_3d7d6b1aec1757d4a20b4ac641bd6be4);
+            
+        
+
+        marker_eca326414a89b13f000d69df229dd609.bindPopup(popup_608cbc485edd4d653e5c3c533528a835)
+        ;
+
+        
+    
+    
+            var marker_24c6605a7c705f9806aa047dccbdd409 = L.marker(
+                [59.8621818, 10.4781709],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_b4d91694c589c4f9baa661aee9c10f49 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_24c6605a7c705f9806aa047dccbdd409.setIcon(icon_b4d91694c589c4f9baa661aee9c10f49);
+        
+    
+        var popup_f9ea31ab2baefc167bcb9e7b67417e19 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_ebd6128122ec81e1de5eac12e8674638 = $(`<div id="html_ebd6128122ec81e1de5eac12e8674638" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Torstad<br><b>Kapasitet</b>: 15</div></div>`)[0];
+                popup_f9ea31ab2baefc167bcb9e7b67417e19.setContent(html_ebd6128122ec81e1de5eac12e8674638);
+            
+        
+
+        marker_24c6605a7c705f9806aa047dccbdd409.bindPopup(popup_f9ea31ab2baefc167bcb9e7b67417e19)
+        ;
+
+        
+    
+    
+            var marker_806081e13149e98422981e8e0410a805 = L.marker(
+                [59.8486877, 10.444405],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_a80f4ff4f968ffc22afde7fe06ab449c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_806081e13149e98422981e8e0410a805.setIcon(icon_a80f4ff4f968ffc22afde7fe06ab449c);
+        
+    
+        var popup_9fae686b87ec2a76dfe721ab45bd9c8a = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_0498ba3149c08455f372047490459a9e = $(`<div id="html_0498ba3149c08455f372047490459a9e" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Solvang<br><b>Kapasitet</b>: 10</div></div>`)[0];
+                popup_9fae686b87ec2a76dfe721ab45bd9c8a.setContent(html_0498ba3149c08455f372047490459a9e);
+            
+        
+
+        marker_806081e13149e98422981e8e0410a805.bindPopup(popup_9fae686b87ec2a76dfe721ab45bd9c8a)
+        ;
+
+        
+    
+    
+            var marker_b20636bedbb72421fdd3f63e2a024f98 = L.marker(
+                [59.848727, 10.4057807],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_5c1d13e1da01e6c1eccc70c099d84827 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_b20636bedbb72421fdd3f63e2a024f98.setIcon(icon_5c1d13e1da01e6c1eccc70c099d84827);
+        
+    
+        var popup_96ebaff29d25cc2f3c2d6576f02c221f = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_f42b4b64a010452d923a1224d0a40037 = $(`<div id="html_f42b4b64a010452d923a1224d0a40037" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Borgen<br><b>Kapasitet</b>: -39</div></div>`)[0];
+                popup_96ebaff29d25cc2f3c2d6576f02c221f.setContent(html_f42b4b64a010452d923a1224d0a40037);
+            
+        
+
+        marker_b20636bedbb72421fdd3f63e2a024f98.bindPopup(popup_96ebaff29d25cc2f3c2d6576f02c221f)
+        ;
+
+        
+    
+    
+            var marker_e311f8588df6d09c397ffa1cc0cdad8a = L.marker(
+                [59.8284839, 10.4378358],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_f77f809e1f3f5a3721aded2efb5d92a7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "darkgreen", "prefix": "glyphicon"}
+            );
+            marker_e311f8588df6d09c397ffa1cc0cdad8a.setIcon(icon_f77f809e1f3f5a3721aded2efb5d92a7);
+        
+    
+        var popup_52d3ae4b0c34e9980bdefe7592138476 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_9ea5be459b59dbb26e0de77b1671a17f = $(`<div id="html_9ea5be459b59dbb26e0de77b1671a17f" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Risenga<br><b>Kapasitet</b>: 147</div></div>`)[0];
+                popup_52d3ae4b0c34e9980bdefe7592138476.setContent(html_9ea5be459b59dbb26e0de77b1671a17f);
+            
+        
+
+        marker_e311f8588df6d09c397ffa1cc0cdad8a.bindPopup(popup_52d3ae4b0c34e9980bdefe7592138476)
+        ;
+
+        
+    
+    
+            var marker_d8fc9b6f63a170b1c059c42ad06c6034 = L.marker(
+                [59.802517, 10.4766078],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_8001404616f2e3b42c6cd7702cdb4fb2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_d8fc9b6f63a170b1c059c42ad06c6034.setIcon(icon_8001404616f2e3b42c6cd7702cdb4fb2);
+        
+    
+        var popup_eede0d34b135f1b954c861f57dafa5ee = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_29612a5652ba948a18914bd32f1b9c53 = $(`<div id="html_29612a5652ba948a18914bd32f1b9c53" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Vollen<br><b>Kapasitet</b>: 56</div></div>`)[0];
+                popup_eede0d34b135f1b954c861f57dafa5ee.setContent(html_29612a5652ba948a18914bd32f1b9c53);
+            
+        
+
+        marker_d8fc9b6f63a170b1c059c42ad06c6034.bindPopup(popup_eede0d34b135f1b954c861f57dafa5ee)
+        ;
+
+        
+    
+    
+            var marker_31bbe084de50d39f24ee7d6e87ff372b = L.marker(
+                [59.8025829, 10.3993582],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_24398eb75058c72b3609a0e53637a4a7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "lightred", "prefix": "glyphicon"}
+            );
+            marker_31bbe084de50d39f24ee7d6e87ff372b.setIcon(icon_24398eb75058c72b3609a0e53637a4a7);
+        
+    
+        var popup_b59708ecb08f5f4e98d36adc9dd27df7 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_2730cf5ea17396d9358ece8f61a5f8cb = $(`<div id="html_2730cf5ea17396d9358ece8f61a5f8cb" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Hovedgaarden<br><b>Kapasitet</b>: -9</div></div>`)[0];
+                popup_b59708ecb08f5f4e98d36adc9dd27df7.setContent(html_2730cf5ea17396d9358ece8f61a5f8cb);
+            
+        
+
+        marker_31bbe084de50d39f24ee7d6e87ff372b.bindPopup(popup_b59708ecb08f5f4e98d36adc9dd27df7)
+        ;
+
+        
+    
+    
+            var marker_5ca4a0b6976352c57736272940f0b8c7 = L.marker(
+                [59.7792919, 10.4860684],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_8f83fd13587ea2d8bf0225d3ca66cd5c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "darkred", "prefix": "glyphicon"}
+            );
+            marker_5ca4a0b6976352c57736272940f0b8c7.setIcon(icon_8f83fd13587ea2d8bf0225d3ca66cd5c);
+        
+    
+        var popup_114d53304f23fbf7932fde2d7b341fe7 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_c08b1881449c50845b35345903598370 = $(`<div id="html_c08b1881449c50845b35345903598370" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Slemmestad<br><b>Kapasitet</b>: 25</div></div>`)[0];
+                popup_114d53304f23fbf7932fde2d7b341fe7.setContent(html_c08b1881449c50845b35345903598370);
+            
+        
+
+        marker_5ca4a0b6976352c57736272940f0b8c7.bindPopup(popup_114d53304f23fbf7932fde2d7b341fe7)
+        ;
+
+        
+    
+    
+            var marker_51065a736bad9d382a5a3094aa796b31 = L.marker(
+                [59.7458294, 10.3906545],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_7acbe6e079b9793e4c6d1ab386c7a8b3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_51065a736bad9d382a5a3094aa796b31.setIcon(icon_7acbe6e079b9793e4c6d1ab386c7a8b3);
+        
+    
+        var popup_da6b757f20a5685ab4246eaa80454e36 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_1a3ddcb41fcb9118f1380050567d383b = $(`<div id="html_1a3ddcb41fcb9118f1380050567d383b" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Roeyken<br><b>Kapasitet</b>: -29</div></div>`)[0];
+                popup_da6b757f20a5685ab4246eaa80454e36.setContent(html_1a3ddcb41fcb9118f1380050567d383b);
+            
+        
+
+        marker_51065a736bad9d382a5a3094aa796b31.bindPopup(popup_da6b757f20a5685ab4246eaa80454e36)
+        ;
+
+        
+    
+    
+            var marker_eccab27848d4c6d9f7e514b21a882cd4 = L.marker(
+                [59.7387589, 10.3111976],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_8a75d5e16fa0c1311e3dbf796c40514f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_eccab27848d4c6d9f7e514b21a882cd4.setIcon(icon_8a75d5e16fa0c1311e3dbf796c40514f);
+        
+    
+        var popup_32229f94f2190d27174a975706f831ad = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_3050ad51da92f6061c854c6b9f4d7a6d = $(`<div id="html_3050ad51da92f6061c854c6b9f4d7a6d" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Spikkestad<br><b>Kapasitet</b>: 59</div></div>`)[0];
+                popup_32229f94f2190d27174a975706f831ad.setContent(html_3050ad51da92f6061c854c6b9f4d7a6d);
+            
+        
+
+        marker_eccab27848d4c6d9f7e514b21a882cd4.bindPopup(popup_32229f94f2190d27174a975706f831ad)
+        ;
+
+        
+    
+    
+            var marker_e09e3f3513a92bd10f9c862e23674736 = L.marker(
+                [59.7388396, 10.2493977],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_d86ff3502f4cf911d265d14d3fdf051f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_e09e3f3513a92bd10f9c862e23674736.setIcon(icon_d86ff3502f4cf911d265d14d3fdf051f);
+        
+    
+        var popup_090bb18c138040c6f202008883d1209f = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_57474d6cbd0bc65b8b7b4bbd5b3a2ff1 = $(`<div id="html_57474d6cbd0bc65b8b7b4bbd5b3a2ff1" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Saetre<br><b>Kapasitet</b>: 52</div></div>`)[0];
+                popup_090bb18c138040c6f202008883d1209f.setContent(html_57474d6cbd0bc65b8b7b4bbd5b3a2ff1);
+            
+        
+
+        marker_e09e3f3513a92bd10f9c862e23674736.bindPopup(popup_090bb18c138040c6f202008883d1209f)
+        ;
+
+        
+    
+    
+            var marker_c5cea38affeaf5e084b9b4ee7ac41874 = L.marker(
+                [59.5409922, 10.5489635],
+                {}
+            ).addTo(map_371d65fcddcb65af4aa65479288c0a91);
+        
+    
+            var icon_37a20642841854b3d9a0fc1fbd3ff260 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_c5cea38affeaf5e084b9b4ee7ac41874.setIcon(icon_37a20642841854b3d9a0fc1fbd3ff260);
+        
+    
+        var popup_0c38586c68e588db880fcaf3d3bff169 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_e0e06fd12dc29725c7b0ac228d94699d = $(`<div id="html_e0e06fd12dc29725c7b0ac228d94699d" style="width: 100.0%; height: 100.0%;"><div style = 'font-size: 18px;'><b>Sted</b>: Tofte<br><b>Kapasitet</b>: 44</div></div>`)[0];
+                popup_0c38586c68e588db880fcaf3d3bff169.setContent(html_e0e06fd12dc29725c7b0ac228d94699d);
+            
+        
+
+        marker_c5cea38affeaf5e084b9b4ee7ac41874.bindPopup(popup_0c38586c68e588db880fcaf3d3bff169)
+        ;
+
+        
+    
+</script>
+</html>

@@ -1,0 +1,97 @@
+,navn,type_bhg,privat_bhg,år,antall_barn,barn_per_voksen,bhg_areal,addresse,latitudes,longitudes
+0,100-Meterskogen barnehage AS,Privat,True,1 - 5 år,34,"5,3","7,9 m2","Godheimveien 26, 3440 RØYKEN",59.74958230000001,10.3991506
+1,As Barnas Hus Gullhella,Privat,True,1 - 5 år,48,"5,5","4,5 m2","Bukkemyrveien 3, 1386 ASKER",59.8109377,10.4478181
+2,Askeladden steinerbarnehage,Privat,True,1 - 5 år,47,"4,7","7,1 m2","Åsheimveien 12B, 3490 KLOKKARSTUA",59.6339312,10.4959988
+3,Bikuben barnehage,Privat,True,1 - 5 år,40,"4,8","4,7 m2","Rosenkrantz vei 39, 1397 NESØYA",59.8701072,10.5184366
+4,Billingstad barnehage SA,Privat,True,1 - 5 år,82,"5,6","4,5 m2","Billingstadveien 60, 1396 BILLINGSTAD",59.87430269999999,10.471004
+5,Bitehagen barnehage SA,Privat,True,1 - 5 år,49,"5,8","5,7 m2","Bitehagen 10B, 3440 RØYKEN",59.7419804,10.3664346
+6,Bjerkås barnehage,Privat,True,1 - 5 år,67,"5,7","4,2 m2","Høymyrmarka 9, 1391 VOLLEN",59.7925109,10.4832943
+7,Bleikerfaret barnehage,Kommunal,False,1 - 5 år,94,"5,4","5,8 m2","Bleikerfaret 14, 1387 ASKER",59.8307896,10.4537581
+8,Bondi barnehage,Kommunal,False,1 - 2 år,12,6,"5,7 m2","Idunns vei 3, 1386 ASKER",59.8226427,10.4376251
+9,Borgen barnehage,Kommunal,False,1 - 5 år,60,6,"5,6 m2","Vardefaret 38, 1388 BORGEN",59.82581880000001,10.4135344
+10,Borgen Skog barnehage,Privat,True,1 - 5 år,48,"5,5","5,1 m2","Finkefaret 1, 1388 BORGEN",59.82307300000001,10.4181683
+11,Brendsrud barnehage,Kommunal,False,1 - 5 år,48,"5,5","5,1 m2","Brendsrudtoppen 29B, 1385 ASKER",59.823952,10.3903289
+12,Båstadmyra barnehage SA,Privat,True,1 - 5 år,68,"5,6","5,8 m2","Haldensvingen 61, 1387 ASKER",59.8346794,10.4544414
+13,Carpe Diem barnehage,Privat,True,1 - 5 år,43,"6,5","3,9 m2","Brøholtveien 79, 3430 SPIKKESTAD",59.7273323,10.3262477
+14,Doktorgården barnehage,Kommunal,False,1 - 5 år,41,"5,9","6,2 m2","Vestre Strandvei 22, 3482 TOFTE",59.5410165,10.5514741
+15,Engelsrud barnehage,Privat,True,1 - 5 år,27,"5,7","4,6 m2","Nordvannslia 29, 1385 ASKER",59.8126857,10.3635613
+16,Espira Blakstad barnehage,Privat,True,1 - 5 år,92,6,"4,5 m2","Strandveien 57, 1392 VETTRE",59.8198729,10.4683275
+17,Espira Gullhella barnehage,Privat,True,1 - 5 år,96,6,"4,8 m2","Korpefaret 3, 1386 ASKER",59.8128853,10.4413501
+18,Espira Årosfjellet barnehage,Privat,True,1 - 5 år,67,6,"5,5 m2","Kjøyafaret 54, 3474 ÅROS",59.71294210000001,10.5116798
+19,Folkestad barnehage,Kommunal,False,1 - 5 år,17,"5,8","6,5 m2","Folkestadveien 4, 3483 KANA",59.5517415,10.4650788
+20,Frydendal barnehage,Privat,True,1 - 5 år,59,"4,7","4,3 m2","Nedre Frydendal 88, 1384 ASKER",59.84171449999999,10.4211325
+21,Furulia familiebarnehage,Privat,True,1 - 5 år,10,-1,-1 m2,"Furulia 3A, 3470 SLEMMESTAD",59.7760949,10.4933983
+22,Furuly Bhg AS,Privat,True,1 - 5 år,30,"5,8",5 m2,"Øvre Askerhagen 8B, 1383 ASKER",59.83484359999999,10.4213802
+23,Føyka barnehage Gamle Drammensvei,Kommunal,False,1 - 5 år,34,"4,6","4,8 m2","Semsveien 139, 1384 ASKER",59.85144450000001,10.4227645
+24,Føyka barnehage Ånnerudveien,Offentlig,False,1 - 5 år,38,"5,6","4,3 m2","Ånnerudveien 11, 1383 ASKER",59.8285611,10.4028096
+25,Gulspurven barnehage,Kommunal,False,1 - 5 år,35,6,"4,5 m2","Jordet 1, 3480 FILTVET",59.5614923,10.5814166
+26,Hallenåsen familiebarnehage Marit Regine Kinserdal,Privat,True,1 - 5 år,5,-1,-1 m2,"Hallenåsen terrasse 41, 1389 HEGGEDAL",59.7763722,10.413403
+27,Hanevold Barnegård AS,Privat,True,1 - 5 år,54,6,"3,9 m2","Hanevoldveien 9B, 1384 ASKER",59.8467466,10.4187253
+28,Heggedalskogen barnehage Heggedalskogen,Kommunal,False,1 - 5 år,44,6,"5,8 m2","Heggedalskogen 8, 1389 HEGGEDAL",59.7831339,10.4464643
+29,Heggum barnehage AS,Privat,True,1 - 5 år,41,5,5 m2,"Heggumhøgda 3, 3440 RØYKEN",59.7472755,10.4018523
+30,Helledammen Fus barnehage AS,Privat,True,1 - 5 år,26,6,"8,4 m2","Helledamsveien 31, 3430 SPIKKESTAD",59.7424912,10.3416629
+31,Holmen barnehage,Kommunal,False,1 - 5 år,73,"5,6","4,9 m2","Torstadveien 1, 1396 BILLINGSTAD",59.8657951,10.4845289
+32,Holmentoppen barnehage,Privat,True,1 - 5 år,16,"5,8","4,7 m2","Nesbruveien 55A, 1396 BILLINGSTAD",59.8717975,10.4900906
+33,Hval Gård barnehage Hvalsveien,Kommunal,False,1 - 5 år,98,"5,9","4,1 m2","Hvalsveien 35, 1394 NESBRU",59.8440158,10.4866296
+34,Hvalstad barnehage,Kommunal,False,1 - 5 år,75,6,5 m2,"Hvalstadveien 21, 1395 HVALSTAD",59.8611788,10.466927
+35,Hyggen barnehage,Kommunal,False,1 - 5 år,32,"5,9","5,8 m2","Bakkekroken 12, 3442 HYGGEN",59.7170992,10.3740153
+36,Høymyrmarka Familiebarnehage,Privat,True,1 - 2 år,3,-1,-1 m2,"Høymyrmarka 58, 1391 VOLLEN",59.7885625,10.4810664
+37,Kana barnehage,Privat,True,1 - 5 år,52,"5,6","5,2 m2","Aaslyveien 4, 3483 KANA",59.2912121,10.3502433
+38,Kistefossdammen barnehage,Kommunal,False,1 - 5 år,95,"5,9","5,6 m2","Vikingjordet 5, 1389 HEGGEDAL",59.78348279999999,10.4332015
+39,Kjekstadmarka Kanvas-barnehage,Privat,True,1 - 5 år,53,"5,9","4,9 m2","Heggveien 40, 3440 RØYKEN",59.7528099,10.3968757
+40,Klokkarstua barnehage,Kommunal,False,1 - 5 år,35,"5,3","4,9 m2","Knivsfjellveien 4, 3490 KLOKKARSTUA",59.6096027,10.4510153
+41,Landøya barnehage,Kommunal,False,1 - 5 år,70,"5,9","5,6 m2","Nesbukta 19, 1394 NESBRU",59.86091279999999,10.5024791
+42,Leikestua barnehage,Privat,True,1 - 5 år,29,"5,3","4,7 m2","Eikeveien 62, 1384 ASKER",59.8394408,10.44584
+43,Læringsverkstedet barnehage Velodromen idrettsbarnehage,Privat,True,1 - 5 år,37,6,"4,6 m2","Langenga 62, 1386 ASKER",59.8254631,10.4523762
+44,Læringsverkstedet Bekkeveien barnehage,Privat,True,1 - 5 år,78,6,"5,6 m2","Bekkeveien 1, 1396 BILLINGSTAD",59.8762193,10.4852566
+45,Læringsverkstedet Bjørndalen barnehage,Privat,True,1 - 5 år,80,6,"6,5 m2","Bjørndalsveien 9, 1395 HVALSTAD",59.8501924,10.4687093
+46,Læringsverkstedet Vestre Billingstad naturbarnehage,Privat,True,1 - 5 år,145,"5,9","4,8 m2","Bergerveien 17, 1396 BILLINGSTAD",59.8694906,10.4812523
+47,Mellom-Nes Fus barnehage AS,Privat,True,1 - 5 år,111,6,"4,6 m2","Nesbruveien 70, 1394 NESBRU",59.8685346,10.4920735
+48,Midtbygda Kanvas-barnehage,Privat,True,1 - 5 år,50,6,"4,5 m2","Nils Slottos vei 5, 3440 RØYKEN",59.7376321,10.4027375
+49,Morbergtoppen Fus barnehage AS,Privat,True,1 - 5 år,93,"5,7","4,7 m2","Nyveien 39, 3470 SLEMMESTAD",59.7724413,10.4911565
+50,Morellveien barnehage,Kommunal,False,1 - 5 år,72,"5,6",5 m2,"Morellveien 52, 1387 ASKER",59.8275581,10.4514997
+51,Nakuhel friluftsbarnehage SA,Privat,True,1 - 5 år,25,"3,9","6,5 m2","Semsveien 152, 1384 ASKER",59.85503850000001,10.4248989
+52,Nansentunet musikkbarnehage SA,Privat,True,1 - 5 år,50,"5,8","4,6 m2","Håkavikveien 9, 1390 VOLLEN",59.80237469999999,10.5004289
+53,Nedre Bleiker Barnehus,Privat,True,1 - 5 år,72,"5,1","5,1 m2","Ridderkleiva 49, 1386 ASKER",59.82323950000001,10.4473165
+54,Nedre Høvik Fus barnehage,Privat,True,1 - 5 år,67,"5,8","5,7 m2","Høvikskogen 2, 3477 BÅTSTØ",59.7285201,10.5124395
+55,Nesbru barnehage,Privat,True,1 - 5 år,42,"5,4","4,6 m2","Langkroken 13, 1394 NESBRU",59.8596478,10.4898116
+56,Nesøya barnehage,Kommunal,False,1 - 5 år,46,"5,9","6,1 m2","Vestre vei 3, 1397 NESØYA",59.8694364,10.5147499
+57,Norlandia Lilleborgen barnehage,Privat,True,1 - 5 år,45,"5,8","3,9 m2","Trettestykket 39, 1388 BORGEN",59.81303629999999,10.4291349
+58,Norlandia Nilsemarka barnehage,Privat,True,1 - 5 år,89,"5,9","4,5 m2","Vollenmarka 31, 1390 VOLLEN",59.8034492,10.4751388
+59,Nærsnes barnehage SA,Privat,True,1 - 5 år,18,"5,2","7,2 m2","Sundbyveien 5, 3478 NÆRSNES",59.7607685,10.4975402
+60,Nærsnes kystbarnehage AS,Privat,True,1 - 5 år,79,"5,3","4,5 m2","Sokkabekkveien 1, 3478 NÆRSNES",59.75442260000001,10.5017966
+61,Paletten Kanvas-barnehage,Privat,True,1 - 5 år,77,6,"5,2 m2","Kunnskapsveien 44, 3430 SPIKKESTAD",59.75014239999999,10.3373285
+62,Regnbuen steinerbarnehage,Privat,True,1 - 5 år,47,"5,3",5 m2,"Nesvangen 4, 1394 NESBRU",59.86197619999999,10.4951312
+63,Rudolf Steinerbarnehagen i Asker,Privat,True,1 - 5 år,47,"5,2","4,7 m2","Hvalstadlia 3, 1395 HVALSTAD",59.85870329999999,10.4609113
+64,Røyken barnehage,Kommunal,False,1 - 5 år,42,"5,3","6,2 m2","Løkenveien 1, 3440 RØYKEN",59.7458152,10.3932534
+65,Sem barnehage,Privat,True,1 - 5 år,48,"5,6","4,3 m2","Semsveien 137, 1384 ASKER",59.85184049999999,10.4229176
+66,Slemmestad barnehage,Kommunal,False,1 - 5 år,60,"5,3","7,6 m2","Boligveien 22, 3470 SLEMMESTAD",59.77927800000001,10.4885789
+67,Slingrebekken barnehage,Kommunal,False,1 - 5 år,78,6,"4,5 m2","Stampeleina 2, 3475 SÆTRE",59.6669352,10.5317314
+68,Solgården barnehage,Kommunal,False,1 - 5 år,112,"5,9","5,8 m2","Kirkeveien 100, 1384 ASKER",59.8492037,10.4463977
+69,Solstad barnehage,Kommunal,False,1 - 5 år,53,"5,8","4,5 m2","Solstadveien 77, 1395 HVALSTAD",59.8591128,10.4602838
+70,Spikkestad Kanvas-barnehage,Privat,True,1 - 5 år,57,6,"4,6 m2","Teglverksveien 8, 3430 SPIKKESTAD",59.745769,10.3369059
+71,Spiren barnehage,Privat,True,1 - 5 år,27,"5,5","5,3 m2","Hurumveien 42, 3474 ÅROS",59.7026338,10.5183786
+72,Stiftelsen Tertitten barnehage,Privat,True,1 - 5 år,19,"5,8","4,6 m2","Solstadveien 79, 1395 HVALSTAD",59.8590784,10.4606844
+73,Stiftelsen Vollen montessoribarnehage,Privat,True,1 - 5 år,82,"5,8","4,8 m2","Vollenveien 34, 1390 VOLLEN",59.80551639999999,10.47712
+74,Stinaløkka Kanvas-barnehage,Privat,True,1 - 5 år,58,"5,4","6,8 m2","Verkensveien 22, 1385 ASKER",59.79997179999999,10.3719189
+75,Sydskogen barnehage,Kommunal,False,1 - 5 år,60,"5,8",4 m2,"Tors vei 182, 3472 BØDALEN",59.76109489999999,10.4533907
+76,Søndre Borgen barnehage,Kommunal,False,1 - 5 år,59,"5,7","4,7 m2","Søndre Borgen 16, 1388 BORGEN",59.82671260000001,10.4249538
+77,Torp Høymyr barnehage SA,Privat,True,1 - 5 år,55,"5,5","5,5 m2","Torpmarka 156, 1389 HEGGEDAL",59.7872844,10.4710112
+78,Torvbråten Kanvas-barnehage,Privat,True,1 - 5 år,62,6,"4,3 m2","Østskogveien 40, 3470 SLEMMESTAD",59.7611348,10.4779388
+79,"Trollstua, Frelsesarmeens barnehage i Asker AS",Privat,True,1 - 5 år,61,6,5 m2,"Brendsrudtoppen 60, 1385 ASKER",59.8227803,10.3853444
+80,Utforskeren Kanvas-barnehage,Privat,True,1 - 5 år,82,"5,8","5,4 m2","Kirkealleen 114, 3470 SLEMMESTAD",59.77810760000001,10.4901931
+81,Utsikt1 familiebarnehage,Privat,True,1 - 2 år,8,-1,-1 m2,"Falkeveien 25, 3475 SÆTRE",59.6703063,10.5328245
+82,Vardåsen barnehage SA,Privat,True,1 - 5 år,60,6,"5,7 m2","Slottsberget 6, 1385 ASKER",59.81956839999999,10.382486
+83,Vekstbarnehagen,Privat,True,1 - 5 år,28,"5,8","7,1 m2","Årengveien 1B, 1394 NESBRU",59.8652381,10.4910362
+84,Vendla barnehage,Kommunal,False,1 - 5 år,132,"5,8","5,2 m2","Søndre vei 12, 1397 NESØYA",59.8625754,10.5258195
+85,Vikingjordet barnehage Åmotåsen,Kommunal,False,1 - 5 år,72,"5,7","5,1 m2","Åmotåsen 1, 1389 HEGGEDAL",59.782766,10.4321992
+86,Vollen familiebarnehage,Privat,True,1 - 2 år,4,-1,-1 m2,"Råengveien 3A, 1390 VOLLEN",59.7991924,10.4860571
+87,Vollen kystkulturbarnehage AS,Privat,True,1 - 5 år,37,"5,8","7,4 m2","Eternitveien 27, 3470 SLEMMESTAD",59.78765720000001,10.4931494
+88,Ødegården Barnehagedrift AS,Privat,True,1 - 5 år,94,6,"5,5 m2","Storsandveien 5B, 3475 SÆTRE",59.65852820000001,10.5791184
+89,Østenstad menighetsbarnehage,Privat,True,1 - 5 år,18,"5,9","5,4 m2","Gudolf Blakstads vei 40, 1392 VETTRE",59.8126431,10.463885
+90,Østhellinga barnehage,Kommunal,False,1 - 5 år,47,"5,4","4,8 m2","Østhellinga 21, 1388 BORGEN",59.8154122,10.428939
+91,Åby barnehage,Kommunal,False,1 - 5 år,72,"5,9","4,6 m2","Åbyfaret 201, 1392 VETTRE",59.82153340000001,10.4563418
+92,Ånnerud Barnehus SA,Privat,True,1 - 5 år,29,"5,9","4,8 m2","Gamle Drammensvei 308, 1383 ASKER",59.83022769999999,10.4052149
+93,Ånnerudtoppen barnehage SA,Privat,True,1 - 5 år,80,"5,6","4,6 m2","Ånnerudtoppen 2, 1383 ASKER",59.8320687,10.409514
+94,Åpen barnehage Borgen,Offentlig,False,1 - 5 år,0,0,0 m2,"Borgenveien 100, 1388 Borgen",59.8231961,10.4270481
+95,Åpen barnehage Midtbygda,Kommunal,False,1 - 5 år,0,-1,-1 m2,"Vangsfjellveien 1, 3440 RØYKEN",59.74533,10.4141236
