@@ -1,7 +1,7 @@
-/Data
-/ShinyApp/__pycache__
-/ShinyApp/bin
-/ShinyApp/include
-/ShinyApp/lib
-/ShinyApp/lib64
-/ShinyApp/rsconnect-python
+/Data/
+/ShinyApp/__pycache__/
+/ShinyApp/bin/
+/ShinyApp/include/
+/ShinyApp/lib/
+/ShinyApp/lib64/
+/ShinyApp/rsconnect-python/
