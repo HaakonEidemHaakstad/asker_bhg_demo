@@ -1,7 +1,7 @@
-/home/haakon/rp5_01_ssd/git projects/asker_bhg_demo/Data
-/home/haakon/rp5_01_ssd/git projects/asker_bhg_demo/ShinyApp/__pycache__
-/home/haakon/rp5_01_ssd/git projects/asker_bhg_demo/ShinyApp/bin
-/home/haakon/rp5_01_ssd/git projects/asker_bhg_demo/ShinyApp/include
-/home/haakon/rp5_01_ssd/git projects/asker_bhg_demo/ShinyApp/lib
-/home/haakon/rp5_01_ssd/git projects/asker_bhg_demo/ShinyApp/lib64
-/home/haakon/rp5_01_ssd/git projects/asker_bhg_demo/ShinyApp/rsconnect-python
+/Data
+/ShinyApp/__pycache__
+/ShinyApp/bin
+/ShinyApp/include
+/ShinyApp/lib
+/ShinyApp/lib64
+/ShinyApp/rsconnect-python
