@@ -2,7 +2,9 @@ import copy
 from datetime import datetime
 import os
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from shiny import reactive
 from shiny.express import input, ui, render
 from shinywidgets import render_widget
@@ -420,4 +422,4 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                     m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icon))
                 return m
 
-#rsconnect deploy shiny /media/haakon/rp5_01_ssd/Asker_soeknad/ShinyApp --name haahaa --title asker_bhg_demo
+#rsconnect deploy shiny "/media/haakon/rp5_01_ssd/git projects/asker_bhg_demo" --name haahaa --title asker_bhg_demo
