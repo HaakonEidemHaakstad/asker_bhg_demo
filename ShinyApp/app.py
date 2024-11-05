@@ -64,6 +64,9 @@ justeringshistorikk_backup = pd.DataFrame(columns = ["År", "Område", "Justerin
 df_backup = None
 nullstill = 0
 
+
+fig1, ax1 = None, None
+lines1 = None
 def bhg_plot(bhg):
     x = df_copy.iloc[:, 0]
     y_values = df_copy.iloc[:, 1:] ** 2
@@ -95,6 +98,8 @@ def bhg_plot(bhg):
     ax.legend(bbox_to_anchor = (1.05, 1), loc = 'upper left', frameon = False)
     return fig, ax
 
+fig2, ax2 = None, None
+bars2 = None
 def overordnet_kapasitet_plot():
     y_values = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)]
     x_values = [str(i) for i in df_copy.iloc[:, 0]]
@@ -114,6 +119,8 @@ def overordnet_kapasitet_plot():
     ax.bar_label(vbars, label_type = "edge", padding = 5)
     return fig, ax
 
+fig3, ax3 = None, None
+bars3 = None
 def bhg_barplot(aar):
     x_values = df_copy.iloc[:, 1:]
     yr = df_copy.iloc[:, 0].tolist().index(aar)
@@ -139,6 +146,8 @@ def bhg_barplot(aar):
     ax.set_xlabel("Kapasitet")
     return fig, ax
 
+fig4, ax4 = None, None
+bars4 = None
 def bhg_barplot_2(bhg):
     x_values = df_copy.iloc[:, 1:]
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
@@ -162,6 +171,8 @@ def bhg_barplot_2(bhg):
     ax.set_xlabel("Kapasitet")
     return fig, ax
 
+fig5, ax5 = None, None
+bars5 = None
 def avstander_barplot(avstand, sted):
     steder = avstand.columns[1:].tolist()
     steder = [i.strip() for i in steder]
