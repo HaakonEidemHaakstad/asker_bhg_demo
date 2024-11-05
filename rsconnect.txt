@@ -1,0 +1,1 @@
+rsconnect deploy shiny "/media/haakon/rp5_01_ssd/git projects/asker_bhg_demo" --name haahaa --title asker_bhg_demo

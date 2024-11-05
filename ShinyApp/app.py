@@ -422,4 +422,3 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                     m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icon))
                 return m
 
-#rsconnect deploy shiny "/media/haakon/rp5_01_ssd/git projects/asker_bhg_demo" --name haahaa --title asker_bhg_demo
