@@ -64,7 +64,7 @@ justeringshistorikk_backup = pd.DataFrame(columns = ["År", "Område", "Justerin
 df_backup = None
 nullstill = 0
 
-def bhg_plot(kapasitet, bhg):
+def bhg_plot(bhg):
     x = df_copy.iloc[:, 0]
     y_values = df_copy.iloc[:, 1:] ** 2
     y_min = (max(y_values.max()) * 1.10)**.5 * -1
@@ -114,7 +114,7 @@ def overordnet_kapasitet_plot():
     ax.bar_label(vbars, label_type = "edge", padding = 5)
     return fig, ax
 
-def bhg_barplot(kapasitet, aar):
+def bhg_barplot(aar):
     x_values = df_copy.iloc[:, 1:]
     yr = df_copy.iloc[:, 0].tolist().index(aar)
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
@@ -348,7 +348,7 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                 @render.plot
                 @reactive.event(input.juster, input.tilbake, input.nullstill, input.aar, ignore_none = False)
                 def plot1_1():
-                    bhg_barplot(df_copy, int(input.aar()))
+                    bhg_barplot(int(input.aar()))
             with ui.nav_panel(f"Kapasiteter for området"):
                 @render.plot
                 @reactive.event(input.juster, input.tilbake, input.nullstill, input.bhg, ignore_none = False)
@@ -385,7 +385,7 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                     @render.plot
                     @reactive.event(input.juster, input.tilbake, input.nullstill, input.bhg, ignore_none = False)
                     def plot2_1():
-                        bhg_plot(df_copy, input.bhg())
+                        bhg_plot(input.bhg())
 
                 with ui.nav_panel("Overordnet for Asker"):
                     @render.plot
