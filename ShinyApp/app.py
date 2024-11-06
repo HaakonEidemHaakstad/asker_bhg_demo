@@ -121,7 +121,8 @@ def overordnet_kapasitet_plot():
 
 fig3, ax3 = None, None
 bars3 = None
-def bhg_barplot(aar):
+def bhg_barplot(aar, update = False):
+    global fig3, ax3, bars3
     x_values = df_copy.iloc[:, 1:]
     yr = df_copy.iloc[:, 0].tolist().index(aar)
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
@@ -135,16 +136,22 @@ def bhg_barplot(aar):
         "red" if -25 <= i < 0 else
         "darkred" for i in x_values.iloc[yr, :]]
     colcolors = colcolors[::-1]
-    fig, ax = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
-    hbars = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
-    plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
-    ax.grid(which = "both", linestyle = "--", linewidth = 0.5)
-    ax.set_xlim(-xlim, xlim)
-    ax.axvline(x = 0, color = "black", linestyle = "-", linewidth = 1)
-    ax.bar_label(hbars, label_type = "edge", padding = 5)
-    ax.set_title(f"Forventede for {aar}.")
-    ax.set_xlabel("Kapasitet")
-    return fig, ax
+    if not update or fig3 is None or ax3 is None or bars3 is None:
+        fig3, ax3 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
+        bars3 = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
+        plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
+        ax3.grid(which = "both", linestyle = "--", linewidth = 0.5)
+        ax3.set_xlim(-xlim, xlim)
+        ax3.axvline(x = 0, color = "black", linestyle = "-", linewidth = 1)
+        ax3.set_title(f"Forventede for {aar}.")
+        ax3.set_xlabel("Kapasitet")
+    else:
+        for bar, height, color in zip(bars3, x_values.iloc[yr, :][::-1], colcolors):
+            bar.set_width(height)
+            bar.set_color(color)
+        ax3.set_title(f"Forventede for {aar}.")    
+    ax3.bar_label(bars3, label_type = "edge", padding = 5)
+    return fig3, ax3
 
 fig4, ax4 = None, None
 bars4 = None
