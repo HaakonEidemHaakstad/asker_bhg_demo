@@ -122,7 +122,7 @@ def overordnet_kapasitet_plot():
 fig3, ax3 = None, None
 bars3 = None
 update3 = False
-def bhg_barplot(aar, update = update3):
+def bhg_barplot(aar):
     global fig3, ax3, bars3, update3
     x_values = df_copy.iloc[:, 1:]
     yr = df_copy.iloc[:, 0].tolist().index(aar)
@@ -137,7 +137,7 @@ def bhg_barplot(aar, update = update3):
         "red" if -25 <= i < 0 else
         "darkred" for i in x_values.iloc[yr, :]]
     colcolors = colcolors[::-1]
-    if not update or fig3 is None or ax3 is None or bars3 is None:
+    if not update3 or fig3 is None or ax3 is None or bars3 is None:
         fig3, ax3 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
         bars3 = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
         plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
@@ -146,18 +146,20 @@ def bhg_barplot(aar, update = update3):
         ax3.axvline(x = 0, color = "black", linestyle = "-", linewidth = 1)
         ax3.set_title(f"Forventede for {aar}.")
         ax3.set_xlabel("Kapasitet")
+        update3 = True
     else:
         for bar, height, color in zip(bars3, x_values.iloc[yr, :][::-1], colcolors):
             bar.set_width(height)
             bar.set_color(color)
-        ax3.set_title(f"Forventede for {aar}.")    
+        ax3.set_title(f"Forventede for {aar}.")
     ax3.bar_label(bars3, label_type = "edge", padding = 5)
-    update3 = True
     return fig3, ax3
 
 fig4, ax4 = None, None
 bars4 = None
+update4 = False
 def bhg_barplot_2(bhg):
+    global fig4, ax4, bars4, update4
     x_values = df_copy.iloc[:, 1:]
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
     single_values = [j for i in values for j in i]
@@ -168,17 +170,17 @@ def bhg_barplot_2(bhg):
                  "lightgreen" if 25 <= i <= 100 else
                  "orange" if 0 <= i < 25 else
                  "red" if -25 <= i < 0 else
-                 "darkred" for i in x_values]
-    fig, ax = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
-    hbars = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
+                 "darkred" for i in x_values]   
+    fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
+    bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
     plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
-    ax.grid(which = "both", linestyle = "--", linewidth = 0.5)
-    ax.set_xlim(-xlim, xlim)
-    ax.axvline(x = 0 , color = "black", linestyle = "-", linewidth = 1)
-    ax.bar_label(hbars, label_type = "edge", padding = 5)
-    ax.set_title(f"Forventede for {bhg}.")
-    ax.set_xlabel("Kapasitet")
-    return fig, ax
+    ax4.grid(which = "both", linestyle = "--", linewidth = 0.5)
+    ax4.set_xlim(-xlim, xlim)
+    ax4.axvline(x = 0 , color = "black", linestyle = "-", linewidth = 1)
+    ax4.bar_label(bars4, label_type = "edge", padding = 5)
+    ax4.set_title(f"Forventede for {bhg}.")
+    ax4.set_xlabel("Kapasitet")
+    return fig4, ax4
 
 fig5, ax5 = None, None
 bars5 = None
