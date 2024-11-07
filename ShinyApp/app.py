@@ -121,8 +121,9 @@ def overordnet_kapasitet_plot():
 
 fig3, ax3 = None, None
 bars3 = None
-def bhg_barplot(aar, update = False):
-    global fig3, ax3, bars3
+update3 = False
+def bhg_barplot(aar, update = update3):
+    global fig3, ax3, bars3, update3
     x_values = df_copy.iloc[:, 1:]
     yr = df_copy.iloc[:, 0].tolist().index(aar)
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
@@ -151,6 +152,7 @@ def bhg_barplot(aar, update = False):
             bar.set_color(color)
         ax3.set_title(f"Forventede for {aar}.")    
     ax3.bar_label(bars3, label_type = "edge", padding = 5)
+    update3 = True
     return fig3, ax3
 
 fig4, ax4 = None, None
@@ -200,9 +202,7 @@ def avstander_barplot(avstand, sted):
     return fig, ax
 
 def juster_kapasitet(aar, bhg, justering, kommentar):
-    global nullstill
-    global df_copy
-    global justeringshistorikk
+    global nullstill, df_copy, justeringshistorikk
     yr = df_copy.iloc[:, 0].tolist().index(aar)
     bhg = df.columns.tolist().index(bhg)
     for i in range(yr, len(df.iloc[:, bhg])):
@@ -213,12 +213,7 @@ def juster_kapasitet(aar, bhg, justering, kommentar):
     nullstill = 0
 
 def reset_kapasitet():
-    global justeringslog_backup
-    global justeringshistorikk
-    global justeringshistorikk_backup
-    global nullstill
-    global df_backup
-    global df_copy
+    global justeringslog_backup, justeringshistorikk, justeringshistorikk_backup, nullstill, df_backup, df_copy
     justeringshistorikk_backup = justeringshistorikk.copy(deep = True)
     justeringshistorikk = pd.DataFrame(columns = ["År", "Område", "Justering", "Ny kapasitet", "Kommentar"])
     df_backup = df_copy.copy(deep = True)
@@ -228,10 +223,7 @@ def reset_kapasitet():
     nullstill = 1
 
 def tilbakestill_kapasitet():
-    global nullstill
-    global justeringslog
-    global justeringshistorikk
-    global df_copy
+    global nullstill, justeringslog, justeringshistorikk, df_copy
     if nullstill == 1:
         justeringslog = copy.deepcopy(justeringslog_backup)
         justeringshistorikk = justeringshistorikk_backup.copy(deep = True)
@@ -250,9 +242,7 @@ def tilbakestill_kapasitet():
     return df_copy
     
 def opplastet_log():
-    global justeringslog
-    global df_copy
-    global justeringshistorikk
+    global justeringslog, df_copy, justeringshistorikk
     df_copy.iloc[:, :] = df.iloc[:, :].copy()
     justeringshistorikk = pd.read_csv(input.last_opp()[0]["datapath"])
     justeringslog = justeringshistorikk.values.tolist()        
