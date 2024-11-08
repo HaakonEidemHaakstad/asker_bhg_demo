@@ -65,9 +65,9 @@ df_backup = None
 nullstill = 0
 
 
-fig1, ax1 = None, None
-lines1 = None
+fig1, ax1, lines1, update1 = None, None, None, False
 def bhg_plot(bhg):
+    global fig1, ax1, lines1, update1
     x = df_copy.iloc[:, 0]
     y_values = df_copy.iloc[:, 1:] ** 2
     y_min = (max(y_values.max()) * 1.10)**.5 * -1
@@ -98,9 +98,9 @@ def bhg_plot(bhg):
     ax.legend(bbox_to_anchor = (1.05, 1), loc = 'upper left', frameon = False)
     return fig, ax
 
-fig2, ax2 = None, None
-bars2 = None
+fig2, ax2, bars2, update2 = None, None, None, False
 def overordnet_kapasitet_plot():
+    global fig2, ax2, bars2, update2
     y_values = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)]
     x_values = [str(i) for i in df_copy.iloc[:, 0]]
     fig, ax = plt.subplots()
@@ -119,9 +119,7 @@ def overordnet_kapasitet_plot():
     ax.bar_label(vbars, label_type = "edge", padding = 5)
     return fig, ax
 
-fig3, ax3 = None, None
-bars3 = None
-update3 = False
+fig3, ax3, bars3, update3 = None, None, None, False
 def bhg_barplot(aar):
     global fig3, ax3, bars3, update3
     x_values = df_copy.iloc[:, 1:]
@@ -155,9 +153,7 @@ def bhg_barplot(aar):
     ax3.bar_label(bars3, label_type = "edge", padding = 5)
     return fig3, ax3
 
-fig4, ax4 = None, None
-bars4 = None
-update4 = False
+fig4, ax4, bars4, update4 = None, None, None, False
 def bhg_barplot_2(bhg):
     global fig4, ax4, bars4, update4
     x_values = df_copy.iloc[:, 1:]
