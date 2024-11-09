@@ -172,6 +172,7 @@ def bhg_barplot_2(bhg):
                  "orange" if 0 <= i < 25 else
                  "red" if -25 <= i < 0 else
                  "darkred" for i in x_values]
+    colcolors = colcolors[::-1]
     if not update4 or fig4 is None or ax4 is None or bars4 is None:
         fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
         bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
@@ -182,7 +183,7 @@ def bhg_barplot_2(bhg):
         ax4.set_title(f"Forventede for {bhg}.")
         ax4.set_xlabel("Kapasitet")
     else:
-        for bar, height, color in zip(bars4, x_values.iloc[yr, :][::-1], colcolors):
+        for bar, height, color in zip(bars4, x_values.iloc[bhg, :][::-1], colcolors):
             bar.set_width(height)
             bar.set_color(color)
         ax4.set_title(f"Forventede for {bhg}.")    
