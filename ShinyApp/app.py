@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+from matplotlib.animation import ArtistAnimation
 from shiny import reactive
 from shiny.express import input, ui, render
 from shinywidgets import render_widget
@@ -64,69 +64,47 @@ justeringshistorikk_backup = pd.DataFrame(columns = ["År", "Område", "Justerin
 df_backup = None
 nullstill = 0
 
-fig1, ax1, lines1, update1 = None, None, None, False
 def bhg_plot(bhg):
-    global fig1, ax1, lines1, update1
+    global update1
     x = df_copy.iloc[:, 0]
     y_values = df_copy.iloc[:, 1:] ** 2
     y_min = (max(y_values.max()) * 1.10)**.5 * -1
     y_max = (max(y_values.max()) * 1.10)**.5
-    fig, ax = plt.subplots()
-    ax.set_ylim(y_min, y_max)
-    ax.set_xlim(min(df_copy.iloc[:, 0]), max(df_copy.iloc[:, 0]))
-    ax.set_xticks(range(min(df.iloc[:, 0]), max(df.iloc[:, 0]) + 1))
-    ax.axhline(y = 0, color = "black", linestyle = "dotted")
-    count = 0
-    for column in y_values.columns:
-        if count >= 10:
-            if column != bhg:
-                ax.plot(x, df_copy[column], label = column, linestyle = "--", linewidth = 2, alpha = 0.1)
-            else:
-                ax.plot(x, df_copy[column], label = column, linestyle = "--", linewidth = 2)
-        else:
-            if column != bhg:
-                ax.plot(x, df_copy[column], label = column, linestyle = "-", linewidth = 2, alpha = 0.1)
-            else:
-                ax.plot(x, df_copy[column], label = column, linestyle = "-", linewidth = 2)
-        count += 1
-    ax.grid(True, which = "both", linestyle = "-", linewidth = 0.5)
-    ax.set_xlabel("År")
-    ax.set_ylabel("Kapasitet")
-    ax.set_title(f"Forventet kapasitet per barnehageområde fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
-    fig.subplots_adjust(right = 0.75)
-    ax.legend(bbox_to_anchor = (1.05, 1), loc = 'upper left', frameon = False)
-    return fig, ax
+    bhgs = df_copy.columns[1:]
+    ncol = range(len(bhgs))
+    fig1, ax1 = plt.subplots()
+    ax1.grid(True, which = "both", linestyle = "-", linewidth = 0.5)
+    ls = ["--" if i >= 10 else "-" for i in ncol] # Line-styles
+    opacities = [1 if bhgs[i] == bhg else 0.1 for i in ncol]
+    [ax1.plot(x, df_copy[bhgs[i]], label = bhgs[i], linestyle = ls[i], linewidth = 2, alpha = opacities[i]) for i in ncol]
+    ax1.set_ylim(y_min, y_max)
+    ax1.set_xlim(min(df_copy.iloc[:, 0]), max(df_copy.iloc[:, 0]))
+    ax1.set_xticks(range(min(df.iloc[:, 0]), max(df.iloc[:, 0]) + 1))
+    ax1.set_xlabel("År")
+    ax1.set_ylabel("Kapasitet")
+    ax1.set_title(f"Forventet kapasitet per barnehageområde fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
+    ax1.legend(bbox_to_anchor = (1.05, 1), loc = 'upper left', frameon = False)
+    return fig1, ax1
 
-fig2, ax2, bars2, update2 = None, None, None, False
 def overordnet_kapasitet_plot():
-    global fig2, ax2, bars2, update2
     y_values = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)]
     x_values = [str(i) for i in df_copy.iloc[:, 0]]
+    maxvalue = max([(i**2)**.5 for i in y_values])
     colcolors = ["darkgreen" if i > 300 else
                  "lightgreen" if 100 <= i <= 300 else
                  "orange" if 0 <= i < 100 else
                  "red" if -100 <= i < 0 else
                  "darkred" for i in y_values]
-    if not update2 or fig2 is None or ax2 is None or bars2 is None:
-        fig2, ax2 = plt.subplots()
-        bars2 = plt.bar(x_values, y_values, color = colcolors, edgecolor = "black")
-        ax2.grid(which = "both", linestyle = "--", linewidth = 0.5)
-        maxvalue = max([(i**2)**.5 for i in y_values])
-        ax2.set_ylim(-maxvalue * 1.3, maxvalue * 1.3)
-        ax2.axhline(y = 0, color = "black", linestyle = "-", linewidth = 1)
-        ax2.set_title(f"Forventet overordnet kapasitet i Asker fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
-        update2 = True
-    else:
-        for bar, height, color in zip(bars2, y_values, colcolors):
-            bar.set_width(height)
-            bar.set_color(color)
-    
+    fig2, ax2 = plt.subplots()
+    bars2 = plt.bar(x_values, y_values, color = colcolors, edgecolor = "black")
+    ax2.grid(which = "both", linestyle = "--", linewidth = 0.5)
+    ax2.set_ylim(-maxvalue * 1.3, maxvalue * 1.3)
+    ax2.axhline(y = 0, color = "black", linestyle = "-", linewidth = 1)
+    ax2.set_title(f"Forventet overordnet kapasitet i Asker fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
     ax2.bar_label(bars2, label_type = "edge", padding = 5)
     return fig2, ax2
 
-fig3, ax3, bars3, update3 = None, None, None, False
 def bhg_barplot(aar):
-    global fig3, ax3, bars3, update3
     x_values = df_copy.iloc[:, 1:]
     yr = df_copy.iloc[:, 0].tolist().index(aar)
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
@@ -140,27 +118,18 @@ def bhg_barplot(aar):
         "red" if -25 <= i < 0 else
         "darkred" for i in x_values.iloc[yr, :]]
     colcolors = colcolors[::-1]
-    if not update3 or fig3 is None or ax3 is None or bars3 is None:
-        fig3, ax3 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
-        bars3 = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
-        plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
-        ax3.grid(which = "both", linestyle = "--", linewidth = 0.5)
-        ax3.set_xlim(-xlim, xlim)
-        ax3.axvline(x = 0, color = "black", linestyle = "-", linewidth = 1)
-        ax3.set_title(f"Forventede for {aar}.")
-        ax3.set_xlabel("Kapasitet")
-        update3 = True
-    else:
-        for bar, height, color in zip(bars3, x_values.iloc[yr, :][::-1], colcolors):
-            bar.set_width(height)
-            bar.set_color(color)
-        ax3.set_title(f"Forventede for {aar}.")
+    fig3, ax3 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
+    bars3 = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
+    plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
+    ax3.grid(which = "both", linestyle = "--", linewidth = 0.5)
+    ax3.set_xlim(-xlim, xlim)
+    ax3.axvline(x = 0, color = "black", linestyle = "-", linewidth = 1)
+    ax3.set_title(f"Forventede for {aar}.")
+    ax3.set_xlabel("Kapasitet")
     ax3.bar_label(bars3, label_type = "edge", padding = 5)
     return fig3, ax3
 
-fig4, ax4, bars4, update4 = None, None, None, False
 def bhg_barplot_2(bhg):
-    global fig4, ax4, bars4, update4
     x_values = df_copy.iloc[:, 1:]
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
     single_values = [j for i in values for j in i]
@@ -173,20 +142,15 @@ def bhg_barplot_2(bhg):
                  "red" if -25 <= i < 0 else
                  "darkred" for i in x_values]
     colcolors = colcolors[::-1]
-    if not update4 or fig4 is None or ax4 is None or bars4 is None:
-        fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
-        bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
-        plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
-        ax4.grid(which = "both", linestyle = "--", linewidth = 0.5)
-        ax4.set_xlim(-xlim, xlim)
-        ax4.axvline(x = 0 , color = "black", linestyle = "-", linewidth = 1)
-        ax4.set_title(f"Forventede for {bhg}.")
-        ax4.set_xlabel("Kapasitet")
-    else:
-        for bar, height, color in zip(bars4, x_values.iloc[bhg, :][::-1], colcolors):
-            bar.set_width(height)
-            bar.set_color(color)
-        ax4.set_title(f"Forventede for {bhg}.")    
+    fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
+    bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
+    plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
+    ax4.grid(which = "both", linestyle = "--", linewidth = 0.5)
+    ax4.set_xlim(-xlim, xlim)
+    ax4.axvline(x = 0 , color = "black", linestyle = "-", linewidth = 1)
+    ax4.set_title(f"Forventede for {bhg}.")
+    ax4.set_xlabel("Kapasitet")
+    ax4.set_title(f"Forventede for {bhg}.")    
     ax4.bar_label(bars4, label_type = "edge", padding = 5)
     return fig4, ax4
 
