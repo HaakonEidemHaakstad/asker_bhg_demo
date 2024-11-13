@@ -2,13 +2,12 @@ import copy
 from datetime import datetime
 import os
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import ArtistAnimation
 from shiny import reactive
 from shiny.express import input, ui, render
 from shinywidgets import render_widget
 import ipyleaflet as ipyl
+from colorwheel import ColorWheel
 
 df = {"Aar":          [2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2034], 
       "Landøya":      [33  , 35  , 39  , 47   , 42 , 42  , 36  , 35  , 33  , 30  , 28  , 25  ,   17],
@@ -52,6 +51,7 @@ avstand = {"Sted": navn,
 
 avstand = pd.DataFrame(avstand)
 
+# INITIAL REACTIVE VALUES
 rv_juster = reactive.Value(0)
 rv_tilbake = reactive.Value(0)
 rv_nullstill = reactive.Value(0)
@@ -64,8 +64,14 @@ justeringshistorikk_backup = pd.DataFrame(columns = ["År", "Område", "Justerin
 df_backup = None
 nullstill = 0
 
+if len(df_copy.columns[1:]) <= 6:
+    lc = ColorWheel(color_number = 6).colors
+elif len(df_copy.columns[1:]) <= 12:
+    lc = ColorWheel(color_number = 12).colors
+else:
+    lc = ColorWheel(color_number = ((len(df_copy.columns[1:]) // 12) + 1) * 12).colors
+lc = [(i[0] / 255, i[1] / 255, i[2] / 255) for i in lc]
 def bhg_plot(bhg):
-    global update1
     x = df_copy.iloc[:, 0]
     y_values = df_copy.iloc[:, 1:] ** 2
     y_min = (max(y_values.max()) * 1.10)**.5 * -1
@@ -74,9 +80,9 @@ def bhg_plot(bhg):
     ncol = range(len(bhgs))
     fig1, ax1 = plt.subplots()
     ax1.grid(True, which = "both", linestyle = "-", linewidth = 0.5)
-    ls = ["--" if i >= 10 else "-" for i in ncol] # Line-styles
+    ax1.axhline(y = 0, color = "black", linestyle = "-", linewidth = 1)
     opacities = [1 if bhgs[i] == bhg else 0.1 for i in ncol]
-    [ax1.plot(x, df_copy[bhgs[i]], label = bhgs[i], linestyle = ls[i], linewidth = 2, alpha = opacities[i]) for i in ncol]
+    [ax1.plot(x, df_copy[bhgs[i]], label = bhgs[i], linewidth = 2, alpha = opacities[i], color = lc[i]) for i in ncol]
     ax1.set_ylim(y_min, y_max)
     ax1.set_xlim(min(df_copy.iloc[:, 0]), max(df_copy.iloc[:, 0]))
     ax1.set_xticks(range(min(df.iloc[:, 0]), max(df.iloc[:, 0]) + 1))
@@ -396,11 +402,7 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                     "orange" if df_copy.iloc[index, i] < 25 and df_copy.iloc[index, i] >= 0 else
                     "red" if df_copy.iloc[index, i] < 0 and df_copy.iloc[index, i] >= -25 else
                     "darkred" for i in range(1, len(df.iloc[:, 0].tolist()))]
-                for i in range(len(gps)):
-                    if gps.iloc[i, 0] != input.bhg():
-                        icon = ipyl.AwesomeIcon(name = 'circle', icon_color = 'white', marker_color  = colors[i])
-                    else:
-                        icon = ipyl.AwesomeIcon(name = 'circle', icon_color = "black", marker_color = colors[i])                        
-                    m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icon))
+                icon_color = ["white" if gps.iloc[i, 0] != input.bhg() else "black" for i in range(len(gps))]
+                icons = [ipyl.AwesomeIcon(name = "circle", icon_color = icon_color[i], marker_color  = colors[i]) for i in range(len(gps))]
+                [m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icons[i])) for i in range(len(gps))]
                 return m
-
