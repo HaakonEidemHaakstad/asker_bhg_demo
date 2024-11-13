@@ -181,6 +181,19 @@ def avstander_barplot(avstand, sted):
     ax.bar_label(hbar, label_type = "edge", padding = 5)
     return fig, ax
 
+def draw_map():
+    m = ipyl.Map(center = [59.7069, 10.4366], zoom = 9, scroll_wheel_zoom = True)
+    index = df_copy.iloc[:, 0].tolist().index(int(input.aar()))
+    colors = ["darkgreen" if df_copy.iloc[index, i] >= 150 else
+              "lightgreen" if df_copy.iloc[index, i] < 150 and df_copy.iloc[index, i] >= 25 else
+              "orange" if df_copy.iloc[index, i] < 25 and df_copy.iloc[index, i] >= 0 else
+              "red" if df_copy.iloc[index, i] < 0 and df_copy.iloc[index, i] >= -25 else
+              "darkred" for i in range(1, len(df.iloc[:, 0].tolist()))]
+    icon_color = ["white" if gps.iloc[i, 0] != input.bhg() else "black" for i in range(len(gps))]
+    icons = [ipyl.AwesomeIcon(name = "circle", icon_color = icon_color[i], marker_color  = colors[i]) for i in range(len(gps))]
+    [m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icons[i])) for i in range(len(gps))]
+    return m
+
 def juster_kapasitet(aar, bhg, justering, kommentar):
     global nullstill, df_copy, justeringshistorikk
     yr = df_copy.iloc[:, 0].tolist().index(aar)
@@ -394,15 +407,4 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
             @render_widget
             @reactive.event(input.juster, input.tilbake, input.nullstill, input.aar, input.bhg, ignore_none = False)
             def map():
-                m = ipyl.Map(center = [59.7069, 10.4366], zoom = 9, scroll_wheel_zoom = True)
-                index = df_copy.iloc[:, 0].tolist().index(int(input.aar()))
-                colors = [
-                    "darkgreen" if df_copy.iloc[index, i] >= 150 else
-                    "lightgreen" if df_copy.iloc[index, i] < 150 and df_copy.iloc[index, i] >= 25 else
-                    "orange" if df_copy.iloc[index, i] < 25 and df_copy.iloc[index, i] >= 0 else
-                    "red" if df_copy.iloc[index, i] < 0 and df_copy.iloc[index, i] >= -25 else
-                    "darkred" for i in range(1, len(df.iloc[:, 0].tolist()))]
-                icon_color = ["white" if gps.iloc[i, 0] != input.bhg() else "black" for i in range(len(gps))]
-                icons = [ipyl.AwesomeIcon(name = "circle", icon_color = icon_color[i], marker_color  = colors[i]) for i in range(len(gps))]
-                [m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icons[i])) for i in range(len(gps))]
-                return m
+                return draw_map()
