@@ -55,11 +55,13 @@ avstand = pd.DataFrame(avstand)
 rv_juster = reactive.Value(0)
 rv_tilbake = reactive.Value(0)
 rv_nullstill = reactive.Value(0)
+rv_newColors = reactive.Value(0)
 
-justeringslog = []
-justeringslog_backup = []
+justeringslog, justeringslog_backup = [], []
 justeringshistorikk = pd.DataFrame(columns = ["År", "Område", "Justering", "Ny kapasitet", "Kommentar"])
 justeringshistorikk_backup = pd.DataFrame(columns = ["År", "Område", "Justering", "Ny kapasitet", "Kommentar"])
+
+colors, old_colors = [], []
 
 df_backup = None
 nullstill = 0
@@ -182,13 +184,8 @@ def avstander_barplot(avstand, sted):
     return fig, ax
 
 def draw_map():
+    global colors
     m = ipyl.Map(center = [59.7069, 10.4366], zoom = 9, scroll_wheel_zoom = True)
-    index = df_copy.iloc[:, 0].tolist().index(int(input.aar()))
-    colors = ["darkgreen" if df_copy.iloc[index, i] >= 150 else
-              "lightgreen" if df_copy.iloc[index, i] < 150 and df_copy.iloc[index, i] >= 25 else
-              "orange" if df_copy.iloc[index, i] < 25 and df_copy.iloc[index, i] >= 0 else
-              "red" if df_copy.iloc[index, i] < 0 and df_copy.iloc[index, i] >= -25 else
-              "darkred" for i in range(1, len(df.iloc[:, 0].tolist()))]
     icon_color = ["white" if gps.iloc[i, 0] != input.bhg() else "black" for i in range(len(gps))]
     icons = [ipyl.AwesomeIcon(name = "circle", icon_color = icon_color[i], marker_color  = colors[i]) for i in range(len(gps))]
     [m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icons[i])) for i in range(len(gps))]
@@ -265,6 +262,17 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                 @render.data_frame
                 @reactive.event(input.aar, input.juster, input.tilbake, input.nullstill, rv_juster, rv_tilbake, rv_nullstill, ignore_none = False)
                 def kapasitet():
+                    global colors, old_colors, rv_newColors
+                    index = df_copy.iloc[:, 0].tolist().index(int(input.aar()))
+                    colors = ["darkgreen" if df_copy.iloc[index, i] >= 150 else
+                              "lightgreen" if df_copy.iloc[index, i] < 150 and df_copy.iloc[index, i] >= 25 else
+                              "orange" if df_copy.iloc[index, i] < 25 and df_copy.iloc[index, i] >= 0 else
+                              "red" if df_copy.iloc[index, i] < 0 and df_copy.iloc[index, i] >= -25 else
+                              "darkred" for i in range(1, len(df.iloc[:, 0].tolist()))]
+                    if old_colors != colors:
+                        old_colors = colors
+                        rv_newColors.set(rv_newColors() + 1)
+
                     overordnet_kapasitet = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)] 
                     kap = pd.DataFrame({f"Overordnet kapasitet i {input.aar()}:": [overordnet_kapasitet[df_copy.iloc[:, 0].tolist().index(int(input.aar()))]]}, dtype = str)
                     if int(kap.iloc[0, 0]) > 0:
@@ -405,6 +413,6 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
         
         with ui.card():
             @render_widget
-            @reactive.event(input.juster, input.tilbake, input.nullstill, input.aar, input.bhg, ignore_none = False)
+            @reactive.event(rv_newColors, input.bhg, ignore_none = False)
             def map():
                 return draw_map()
