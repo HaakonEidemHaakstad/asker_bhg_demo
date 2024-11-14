@@ -98,11 +98,7 @@ def overordnet_kapasitet_plot():
     y_values = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)]
     x_values = [str(i) for i in df_copy.iloc[:, 0]]
     maxvalue = max([(i**2)**.5 for i in y_values])
-    colcolors = ["darkgreen" if i > 300 else
-                 "lightgreen" if 100 <= i <= 300 else
-                 "orange" if 0 <= i < 100 else
-                 "red" if -100 <= i < 0 else
-                 "darkred" for i in y_values]
+    colcolors = colors
     fig2, ax2 = plt.subplots()
     bars2 = plt.bar(x_values, y_values, color = colcolors, edgecolor = "black")
     ax2.grid(which = "both", linestyle = "--", linewidth = 0.5)
@@ -119,14 +115,7 @@ def bhg_barplot(aar):
     single_values = [j for i in values for j in i]
     xlim = (round((max([(i**2)**.5 for i in single_values]) / 10)) * 10) * 1.4
     colnames = df_copy.columns[1:][::-1]
-    #colcolors = [
-    #    "darkgreen" if i > 100 else
-    #    "lightgreen" if 25 <= i <= 100 else
-    #    "orange" if 0 <= i < 25 else
-    #    "red" if -25 <= i < 0 else
-    #    "darkred" for i in x_values.iloc[yr, :]]
-    colcolors = colors
-    colcolors = colcolors[::-1]
+    colcolors = colors[::-1]
     fig3, ax3 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
     bars3 = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
     plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
@@ -145,13 +134,7 @@ def bhg_barplot_2(bhg):
     xlim = (round((max([(i**2)**.5 for i in single_values]) / 10)) * 10) * 1.4
     x_values = x_values[bhg]
     colnames = [str(i) for i in df_copy.iloc[:, 0]]
-    #colcolors = ["darkgreen" if i > 100 else
-    #             "lightgreen" if 25 <= i <= 100 else
-    #             "orange" if 0 <= i < 25 else
-    #             "red" if -25 <= i < 0 else
-    #             "darkred" for i in x_values]
-    colcolors = colors.copy()
-    colcolors = colcolors[::-1]
+    colcolors = colors[::-1]
     fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
     bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
     plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
@@ -164,8 +147,6 @@ def bhg_barplot_2(bhg):
     ax4.bar_label(bars4, label_type = "edge", padding = 5)
     return fig4, ax4
 
-fig5, ax5 = None, None
-bars5 = None
 def avstander_barplot(avstand, sted):
     steder = avstand.columns[1:].tolist()
     steder = [i.strip() for i in steder]
