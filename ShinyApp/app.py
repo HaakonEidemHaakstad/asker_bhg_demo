@@ -134,7 +134,12 @@ def bhg_barplot_2(bhg):
     xlim = (round((max([(i**2)**.5 for i in single_values]) / 10)) * 10) * 1.4
     x_values = x_values[bhg]
     colnames = [str(i) for i in df_copy.iloc[:, 0]]
-    colcolors = colors[::-1]
+    colcolors = ["darkgreen" if i > 100 else
+                 "lightgreen" if 25 <= i <= 100 else
+                 "orange" if 0 <= i < 25 else
+                 "red" if -25 <= i < 0 else
+                 "darkred" for i in x_values]
+    colcolors = colcolors[::-1]
     fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
     bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
     plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
@@ -143,7 +148,7 @@ def bhg_barplot_2(bhg):
     ax4.axvline(x = 0 , color = "black", linestyle = "-", linewidth = 1)
     ax4.set_title(f"Forventede for {bhg}.")
     ax4.set_xlabel("Kapasitet")
-    ax4.set_title(f"Forventede for {bhg}.")    
+    ax4.set_title(f"Forventede for {bhg}.")
     ax4.bar_label(bars4, label_type = "edge", padding = 5)
     return fig4, ax4
 
@@ -245,7 +250,7 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                 @render.data_frame
                 @reactive.event(input.aar, input.juster, input.tilbake, input.nullstill, rv_juster, rv_tilbake, rv_nullstill, ignore_none = False)
                 def kapasitet():
-                    global colors, old_colors, rv_newColors
+                    global colors, old_colors
                     index = df_copy.iloc[:, 0].tolist().index(int(input.aar()))
                     colors = ["darkgreen" if df_copy.iloc[index, i] >= 150 else
                               "lightgreen" if df_copy.iloc[index, i] < 150 and df_copy.iloc[index, i] >= 25 else
@@ -338,12 +343,12 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
         with ui.navset_card_tab(id = "bhg_kapasiteter"):
             with ui.nav_panel(f"Kapasiteter for år"):
                 @render.plot
-                @reactive.event(input.juster, input.tilbake, input.nullstill, input.aar, ignore_none = False)
+                @reactive.event(input.juster, input.tilbake, input.nullstill, input.aar, rv_newColors, ignore_none = False)
                 def plot1_1():
                     bhg_barplot(int(input.aar()))
             with ui.nav_panel(f"Kapasiteter for området"):
                 @render.plot
-                @reactive.event(input.juster, input.tilbake, input.nullstill, input.bhg, ignore_none = False)
+                @reactive.event(input.juster, input.tilbake, input.nullstill, input.bhg, rv_newColors, ignore_none = False)
                 def plot1_2():
                     bhg_barplot_2(input.bhg())
     
