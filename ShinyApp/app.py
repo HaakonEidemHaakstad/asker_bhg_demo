@@ -119,12 +119,13 @@ def bhg_barplot(aar):
     single_values = [j for i in values for j in i]
     xlim = (round((max([(i**2)**.5 for i in single_values]) / 10)) * 10) * 1.4
     colnames = df_copy.columns[1:][::-1]
-    colcolors = [
-        "darkgreen" if i > 100 else
-        "lightgreen" if 25 <= i <= 100 else
-        "orange" if 0 <= i < 25 else
-        "red" if -25 <= i < 0 else
-        "darkred" for i in x_values.iloc[yr, :]]
+    #colcolors = [
+    #    "darkgreen" if i > 100 else
+    #    "lightgreen" if 25 <= i <= 100 else
+    #    "orange" if 0 <= i < 25 else
+    #    "red" if -25 <= i < 0 else
+    #    "darkred" for i in x_values.iloc[yr, :]]
+    colcolors = colors
     colcolors = colcolors[::-1]
     fig3, ax3 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
     bars3 = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
@@ -144,11 +145,12 @@ def bhg_barplot_2(bhg):
     xlim = (round((max([(i**2)**.5 for i in single_values]) / 10)) * 10) * 1.4
     x_values = x_values[bhg]
     colnames = [str(i) for i in df_copy.iloc[:, 0]]
-    colcolors = ["darkgreen" if i > 100 else
-                 "lightgreen" if 25 <= i <= 100 else
-                 "orange" if 0 <= i < 25 else
-                 "red" if -25 <= i < 0 else
-                 "darkred" for i in x_values]
+    #colcolors = ["darkgreen" if i > 100 else
+    #             "lightgreen" if 25 <= i <= 100 else
+    #             "orange" if 0 <= i < 25 else
+    #             "red" if -25 <= i < 0 else
+    #             "darkred" for i in x_values]
+    colcolors = colors.copy()
     colcolors = colcolors[::-1]
     fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
     bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
