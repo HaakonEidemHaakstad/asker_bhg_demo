@@ -2,13 +2,12 @@ import copy
 from datetime import datetime
 import os
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 from shiny import reactive
 from shiny.express import input, ui, render
 from shinywidgets import render_widget
 import ipyleaflet as ipyl
+from colorwheel import ColorWheel
 
 df = {"Aar":          [2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2034], 
       "Landøya":      [33  , 35  , 39  , 47   , 42 , 42  , 36  , 35  , 33  , 30  , 28  , 25  ,   17],
@@ -52,92 +51,92 @@ avstand = {"Sted": navn,
 
 avstand = pd.DataFrame(avstand)
 
+# INITIAL REACTIVE VALUES
 rv_juster = reactive.Value(0)
 rv_tilbake = reactive.Value(0)
 rv_nullstill = reactive.Value(0)
+rv_newColors = reactive.Value(0)
 
-justeringslog = []
-justeringslog_backup = []
+justeringslog, justeringslog_backup = [], []
 justeringshistorikk = pd.DataFrame(columns = ["År", "Område", "Justering", "Ny kapasitet", "Kommentar"])
 justeringshistorikk_backup = pd.DataFrame(columns = ["År", "Område", "Justering", "Ny kapasitet", "Kommentar"])
+
+colors, old_colors = [], []
 
 df_backup = None
 nullstill = 0
 
-def bhg_plot(kapasitet, bhg):
+if len(df_copy.columns[1:]) <= 6:
+    lc = ColorWheel(color_number = 6).colors
+elif len(df_copy.columns[1:]) <= 12:
+    lc = ColorWheel(color_number = 12).colors
+else:
+    lc = ColorWheel(color_number = ((len(df_copy.columns[1:]) // 12) + 1) * 12).colors
+lc = [(i[0] / 255, i[1] / 255, i[2] / 255) for i in lc]
+def bhg_plot(bhg):
     x = df_copy.iloc[:, 0]
     y_values = df_copy.iloc[:, 1:] ** 2
     y_min = (max(y_values.max()) * 1.10)**.5 * -1
     y_max = (max(y_values.max()) * 1.10)**.5
-    fig, ax = plt.subplots()
-    ax.set_ylim(y_min, y_max)
-    ax.set_xlim(min(df_copy.iloc[:, 0]), max(df_copy.iloc[:, 0]))
-    ax.set_xticks(range(min(df.iloc[:, 0]), max(df.iloc[:, 0]) + 1))
-    ax.axhline(y = 0, color = "black", linestyle = "dotted")
-    count = 0
-    for column in y_values.columns:
-        if count >= 10:
-            if column != bhg:
-                ax.plot(x, df_copy[column], label = column, linestyle = "--", linewidth = 2, alpha = 0.1)
-            else:
-                ax.plot(x, df_copy[column], label = column, linestyle = "--", linewidth = 2)
-        else:
-            if column != bhg:
-                ax.plot(x, df_copy[column], label = column, linestyle = "-", linewidth = 2, alpha = 0.1)
-            else:
-                ax.plot(x, df_copy[column], label = column, linestyle = "-", linewidth = 2)
-        count += 1
-    ax.grid(True, which = "both", linestyle = "-", linewidth = 0.5)
-    ax.set_xlabel("År")
-    ax.set_ylabel("Kapasitet")
-    ax.set_title(f"Forventet kapasitet per barnehageområde fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
-    fig.subplots_adjust(right = 0.75)
-    ax.legend(bbox_to_anchor = (1.05, 1), loc = 'upper left', frameon = False)
-    return fig, ax
+    bhgs = df_copy.columns[1:]
+    ncol = range(len(bhgs))
+    fig1, ax1 = plt.subplots()
+    ax1.grid(True, which = "both", linestyle = "-", linewidth = 0.5)
+    ax1.axhline(y = 0, color = "black", linestyle = "-", linewidth = 1)
+    opacities = [1 if bhgs[i] == bhg else 0.1 for i in ncol]
+    [ax1.plot(x, df_copy[bhgs[i]], label = bhgs[i], linewidth = 2, alpha = opacities[i], color = lc[i]) for i in ncol]
+    ax1.set_ylim(y_min, y_max)
+    ax1.set_xlim(min(df_copy.iloc[:, 0]), max(df_copy.iloc[:, 0]))
+    ax1.set_xticks(range(min(df.iloc[:, 0]), max(df.iloc[:, 0]) + 1))
+    ax1.set_xlabel("År")
+    ax1.set_ylabel("Kapasitet")
+    ax1.set_title(f"Forventet kapasitet per barnehageområde fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
+    ax1.legend(bbox_to_anchor = (1.05, 1), loc = 'upper left', frameon = False)
+    return fig1, ax1
 
 def overordnet_kapasitet_plot():
     y_values = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)]
     x_values = [str(i) for i in df_copy.iloc[:, 0]]
-    fig, ax = plt.subplots()
+    maxvalue = max([(i**2)**.5 for i in y_values])
     colcolors = ["darkgreen" if i > 300 else
                  "lightgreen" if 100 <= i <= 300 else
                  "orange" if 0 <= i < 100 else
                  "red" if -100 <= i < 0 else
                  "darkred" for i in y_values]
- 
-    vbars = plt.bar(x_values, y_values, color = colcolors, edgecolor = "black")
-    ax.grid(which = "both", linestyle = "--", linewidth = 0.5)
-    maxvalue = max([(i**2)**.5 for i in y_values])
-    ax.set_ylim(-maxvalue * 1.3, maxvalue * 1.3)
-    ax.axhline(y = 0, color = "black", linestyle = "-", linewidth = 1)
-    ax.set_title(f"Forventet overordnet kapasitet i Asker fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
-    ax.bar_label(vbars, label_type = "edge", padding = 5)
-    return fig, ax
+    fig2, ax2 = plt.subplots()
+    bars2 = plt.bar(x_values, y_values, color = colcolors, edgecolor = "black")
+    ax2.grid(which = "both", linestyle = "--", linewidth = 0.5)
+    ax2.set_ylim(-maxvalue * 1.3, maxvalue * 1.3)
+    ax2.axhline(y = 0, color = "black", linestyle = "-", linewidth = 1)
+    ax2.set_title(f"Forventet overordnet kapasitet i Asker fra {min(df_copy.iloc[:, 0])} til {max(df_copy.iloc[:, 0])}.")
+    ax2.bar_label(bars2, label_type = "edge", padding = 5)
+    return fig2, ax2
 
-def bhg_barplot(kapasitet, aar):
+def bhg_barplot(aar):
     x_values = df_copy.iloc[:, 1:]
     yr = df_copy.iloc[:, 0].tolist().index(aar)
     values = [df_copy.iloc[:, i + 1].tolist() for i in range(len(df_copy.columns[1:]))]
     single_values = [j for i in values for j in i]
     xlim = (round((max([(i**2)**.5 for i in single_values]) / 10)) * 10) * 1.4
     colnames = df_copy.columns[1:][::-1]
-    colcolors = [
-        "darkgreen" if i > 100 else
-        "lightgreen" if 25 <= i <= 100 else
-        "orange" if 0 <= i < 25 else
-        "red" if -25 <= i < 0 else
-        "darkred" for i in x_values.iloc[yr, :]]
+    #colcolors = [
+    #    "darkgreen" if i > 100 else
+    #    "lightgreen" if 25 <= i <= 100 else
+    #    "orange" if 0 <= i < 25 else
+    #    "red" if -25 <= i < 0 else
+    #    "darkred" for i in x_values.iloc[yr, :]]
+    colcolors = colors
     colcolors = colcolors[::-1]
-    fig, ax = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
-    hbars = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
+    fig3, ax3 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
+    bars3 = plt.barh(colnames, x_values.iloc[yr, :][::-1], color = colcolors, edgecolor = "black")
     plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
-    ax.grid(which = "both", linestyle = "--", linewidth = 0.5)
-    ax.set_xlim(-xlim, xlim)
-    ax.axvline(x = 0, color = "black", linestyle = "-", linewidth = 1)
-    ax.bar_label(hbars, label_type = "edge", padding = 5)
-    ax.set_title(f"Forventede for {aar}.")
-    ax.set_xlabel("Kapasitet")
-    return fig, ax
+    ax3.grid(which = "both", linestyle = "--", linewidth = 0.5)
+    ax3.set_xlim(-xlim, xlim)
+    ax3.axvline(x = 0, color = "black", linestyle = "-", linewidth = 1)
+    ax3.set_title(f"Forventede for {aar}.")
+    ax3.set_xlabel("Kapasitet")
+    ax3.bar_label(bars3, label_type = "edge", padding = 5)
+    return fig3, ax3
 
 def bhg_barplot_2(bhg):
     x_values = df_copy.iloc[:, 1:]
@@ -146,22 +145,27 @@ def bhg_barplot_2(bhg):
     xlim = (round((max([(i**2)**.5 for i in single_values]) / 10)) * 10) * 1.4
     x_values = x_values[bhg]
     colnames = [str(i) for i in df_copy.iloc[:, 0]]
-    colcolors = ["darkgreen" if i > 100 else
-                 "lightgreen" if 25 <= i <= 100 else
-                 "orange" if 0 <= i < 25 else
-                 "red" if -25 <= i < 0 else
-                 "darkred" for i in x_values]
-    fig, ax = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
-    hbars = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
+    #colcolors = ["darkgreen" if i > 100 else
+    #             "lightgreen" if 25 <= i <= 100 else
+    #             "orange" if 0 <= i < 25 else
+    #             "red" if -25 <= i < 0 else
+    #             "darkred" for i in x_values]
+    colcolors = colors.copy()
+    colcolors = colcolors[::-1]
+    fig4, ax4 = plt.subplots(gridspec_kw = {"left": .3, "bottom": .15})
+    bars4 = plt.barh(colnames, x_values, color = colcolors, edgecolor = "black")
     plt.xticks([-200, -100, 0, 100, 200]) #TODO: Autojuster
-    ax.grid(which = "both", linestyle = "--", linewidth = 0.5)
-    ax.set_xlim(-xlim, xlim)
-    ax.axvline(x = 0 , color = "black", linestyle = "-", linewidth = 1)
-    ax.bar_label(hbars, label_type = "edge", padding = 5)
-    ax.set_title(f"Forventede for {bhg}.")
-    ax.set_xlabel("Kapasitet")
-    return fig, ax
+    ax4.grid(which = "both", linestyle = "--", linewidth = 0.5)
+    ax4.set_xlim(-xlim, xlim)
+    ax4.axvline(x = 0 , color = "black", linestyle = "-", linewidth = 1)
+    ax4.set_title(f"Forventede for {bhg}.")
+    ax4.set_xlabel("Kapasitet")
+    ax4.set_title(f"Forventede for {bhg}.")    
+    ax4.bar_label(bars4, label_type = "edge", padding = 5)
+    return fig4, ax4
 
+fig5, ax5 = None, None
+bars5 = None
 def avstander_barplot(avstand, sted):
     steder = avstand.columns[1:].tolist()
     steder = [i.strip() for i in steder]
@@ -181,10 +185,16 @@ def avstander_barplot(avstand, sted):
     ax.bar_label(hbar, label_type = "edge", padding = 5)
     return fig, ax
 
+def draw_map():
+    global colors
+    m = ipyl.Map(center = [59.7069, 10.4366], zoom = 9, scroll_wheel_zoom = True)
+    icon_color = ["white" if gps.iloc[i, 0] != input.bhg() else "black" for i in range(len(gps))]
+    icons = [ipyl.AwesomeIcon(name = "circle", icon_color = icon_color[i], marker_color  = colors[i]) for i in range(len(gps))]
+    [m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icons[i])) for i in range(len(gps))]
+    return m
+
 def juster_kapasitet(aar, bhg, justering, kommentar):
-    global nullstill
-    global df_copy
-    global justeringshistorikk
+    global nullstill, df_copy, justeringshistorikk
     yr = df_copy.iloc[:, 0].tolist().index(aar)
     bhg = df.columns.tolist().index(bhg)
     for i in range(yr, len(df.iloc[:, bhg])):
@@ -195,12 +205,7 @@ def juster_kapasitet(aar, bhg, justering, kommentar):
     nullstill = 0
 
 def reset_kapasitet():
-    global justeringslog_backup
-    global justeringshistorikk
-    global justeringshistorikk_backup
-    global nullstill
-    global df_backup
-    global df_copy
+    global justeringslog_backup, justeringshistorikk, justeringshistorikk_backup, nullstill, df_backup, df_copy
     justeringshistorikk_backup = justeringshistorikk.copy(deep = True)
     justeringshistorikk = pd.DataFrame(columns = ["År", "Område", "Justering", "Ny kapasitet", "Kommentar"])
     df_backup = df_copy.copy(deep = True)
@@ -210,10 +215,7 @@ def reset_kapasitet():
     nullstill = 1
 
 def tilbakestill_kapasitet():
-    global nullstill
-    global justeringslog
-    global justeringshistorikk
-    global df_copy
+    global nullstill, justeringslog, justeringshistorikk, df_copy
     if nullstill == 1:
         justeringslog = copy.deepcopy(justeringslog_backup)
         justeringshistorikk = justeringshistorikk_backup.copy(deep = True)
@@ -232,9 +234,7 @@ def tilbakestill_kapasitet():
     return df_copy
     
 def opplastet_log():
-    global justeringslog
-    global df_copy
-    global justeringshistorikk
+    global justeringslog, df_copy, justeringshistorikk
     df_copy.iloc[:, :] = df.iloc[:, :].copy()
     justeringshistorikk = pd.read_csv(input.last_opp()[0]["datapath"])
     justeringslog = justeringshistorikk.values.tolist()        
@@ -264,6 +264,17 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                 @render.data_frame
                 @reactive.event(input.aar, input.juster, input.tilbake, input.nullstill, rv_juster, rv_tilbake, rv_nullstill, ignore_none = False)
                 def kapasitet():
+                    global colors, old_colors, rv_newColors
+                    index = df_copy.iloc[:, 0].tolist().index(int(input.aar()))
+                    colors = ["darkgreen" if df_copy.iloc[index, i] >= 150 else
+                              "lightgreen" if df_copy.iloc[index, i] < 150 and df_copy.iloc[index, i] >= 25 else
+                              "orange" if df_copy.iloc[index, i] < 25 and df_copy.iloc[index, i] >= 0 else
+                              "red" if df_copy.iloc[index, i] < 0 and df_copy.iloc[index, i] >= -25 else
+                              "darkred" for i in range(1, len(df.iloc[:, 0].tolist()))]
+                    if old_colors != colors:
+                        old_colors = colors
+                        rv_newColors.set(rv_newColors() + 1)
+
                     overordnet_kapasitet = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)] 
                     kap = pd.DataFrame({f"Overordnet kapasitet i {input.aar()}:": [overordnet_kapasitet[df_copy.iloc[:, 0].tolist().index(int(input.aar()))]]}, dtype = str)
                     if int(kap.iloc[0, 0]) > 0:
@@ -348,7 +359,7 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                 @render.plot
                 @reactive.event(input.juster, input.tilbake, input.nullstill, input.aar, ignore_none = False)
                 def plot1_1():
-                    bhg_barplot(df_copy, int(input.aar()))
+                    bhg_barplot(int(input.aar()))
             with ui.nav_panel(f"Kapasiteter for området"):
                 @render.plot
                 @reactive.event(input.juster, input.tilbake, input.nullstill, input.bhg, ignore_none = False)
@@ -385,7 +396,7 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                     @render.plot
                     @reactive.event(input.juster, input.tilbake, input.nullstill, input.bhg, ignore_none = False)
                     def plot2_1():
-                        bhg_plot(df_copy, input.bhg())
+                        bhg_plot(input.bhg())
 
                 with ui.nav_panel("Overordnet for Asker"):
                     @render.plot
@@ -404,21 +415,6 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
         
         with ui.card():
             @render_widget
-            @reactive.event(input.juster, input.tilbake, input.nullstill, input.aar, input.bhg, ignore_none = False)
+            @reactive.event(rv_newColors, input.bhg, ignore_none = False)
             def map():
-                m = ipyl.Map(center = [59.7069, 10.4366], zoom = 9, scroll_wheel_zoom = True)
-                index = df_copy.iloc[:, 0].tolist().index(int(input.aar()))
-                colors = [
-                    "darkgreen" if df_copy.iloc[index, i] >= 150 else
-                    "lightgreen" if df_copy.iloc[index, i] < 150 and df_copy.iloc[index, i] >= 25 else
-                    "orange" if df_copy.iloc[index, i] < 25 and df_copy.iloc[index, i] >= 0 else
-                    "red" if df_copy.iloc[index, i] < 0 and df_copy.iloc[index, i] >= -25 else
-                    "darkred" for i in range(1, len(df.iloc[:, 0].tolist()))]
-                for i in range(len(gps)):
-                    if gps.iloc[i, 0] != input.bhg():
-                        icon = ipyl.AwesomeIcon(name = 'circle', icon_color = 'white', marker_color  = colors[i])
-                    else:
-                        icon = ipyl.AwesomeIcon(name = 'circle', icon_color = "black", marker_color = colors[i])                        
-                    m.add_layer(ipyl.Marker(location = [gps.iloc[i, 1], gps.iloc[i, 2]], draggable = False, title = gps.iloc[i, 0], icon = icon))
-                return m
-
+                return draw_map()
