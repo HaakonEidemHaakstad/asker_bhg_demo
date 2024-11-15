@@ -98,7 +98,11 @@ def overordnet_kapasitet_plot():
     y_values = [i for i in df_copy.iloc[:, 1:].sum(axis = 1)]
     x_values = [str(i) for i in df_copy.iloc[:, 0]]
     maxvalue = max([(i**2)**.5 for i in y_values])
-    colcolors = colors
+    colcolors = ["darkgreen" if i > 100 else
+                 "lightgreen" if 25 <= i <= 100 else
+                 "orange" if 0 <= i < 25 else
+                 "red" if -25 <= i < 0 else
+                 "darkred" for i in y_values]
     fig2, ax2 = plt.subplots()
     bars2 = plt.bar(x_values, y_values, color = colcolors, edgecolor = "black")
     ax2.grid(which = "both", linestyle = "--", linewidth = 0.5)
@@ -172,7 +176,6 @@ def avstander_barplot(avstand, sted):
     return fig, ax
 
 def draw_map():
-    global colors
     m = ipyl.Map(center = [59.7069, 10.4366], zoom = 9, scroll_wheel_zoom = True)
     icon_color = ["white" if gps.iloc[i, 0] != input.bhg() else "black" for i in range(len(gps))]
     icons = [ipyl.AwesomeIcon(name = "circle", icon_color = icon_color[i], marker_color  = colors[i]) for i in range(len(gps))]
@@ -217,7 +220,6 @@ def tilbakestill_kapasitet():
         df_copy.iloc[i, bhg] = df_copy.iloc[i, bhg] - justeringslog[len(justeringslog) - 1][2]
     justeringslog.pop(len(justeringslog) - 1)
     nullstill = 0
-    return df_copy
     
 def opplastet_log():
     global justeringslog, df_copy, justeringshistorikk
@@ -269,19 +271,7 @@ with ui.layout_columns(col_widths = (3, 6, 3), gap = "0.5%"):
                         farge = "#90EE90"
                     else:
                         farge = "#FFCCCB"
-                    return render.DataGrid(
-                        kap,
-                        styles = [
-                            {
-                                "style": {"background-color": farge,
-                                          "text-align": "right",
-                                          "padding": "7px"}
-                            
-                            }
-                            ],
-                        width = "100%", 
-                        summary = False          
-                    )
+                    return render.DataGrid(kap, styles = [{"style": {"background-color": farge, "text-align": "right", "padding": "7px"}}], width = "100%", summary = False)
                 
             with ui.layout_columns(col_widths = (7, 5)):
                 ui.input_select(
