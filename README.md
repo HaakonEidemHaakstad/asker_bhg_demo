@@ -1,4 +1,4 @@
-# Shiny App Dashboard for Analyzing Kindergarten Capacity
+# Shiny App for Analyzing Kindergarten Capacity
 
 ## Purpose
 
