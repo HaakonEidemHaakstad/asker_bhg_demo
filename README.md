@@ -11,7 +11,7 @@ The following are the chief modules employed in building this dashboard. Both ex
 - shiny
 - matplotlib
 
-At this stage, the most desired contributions focus on improving the app's responsiveness, particularly in rendering speeds for plots. Your input can make a significant impact on enhancing the user experience and scalability of the tool.
+At this stage, the most desired contributions focus on improving the app's responsiveness, particularly in rendering speeds for plots. UI changes are also welcome. Your input can make a significant impact on enhancing the user experience and scalability of the tool.
 
 ## Future Directions
 
