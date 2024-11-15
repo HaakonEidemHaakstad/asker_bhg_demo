@@ -17,7 +17,7 @@ At this stage, the most desired contributions focus on improving the app's respo
 
 The long-term plan for this dashboard includes integrating advanced AI capabilities to provide even more value to municipalities. Planned features include:  
 
-- **AI-Powered Suggestions:** Using technologies like GPTs to analyze political documents and provide context-aware suggestions for resource allocations.  
+- **AI-Powered Suggestions:** Using GPT technologies to analyze political documents and provide context-aware suggestions for resource allocations.  
 - **Automatic Report Generation:** Automatically generating detailed reports based on the analyses performed using the App, saving time and effort for decision-makers.  
 
 These additions aim to make the dashboard a comprehensive tool for data-driven planning and policy-making.
