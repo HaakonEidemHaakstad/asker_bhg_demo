@@ -6,7 +6,7 @@ This is an example dashboard designed to assist municipalities in planning and a
 
 ## Want to Contribute?
 
-The following are the chief modules employed in building this dashboard. Both experts and novices are welcome to contribute to the project and help improve its functionality and usability.
+The following are currently the chief modules employed in building this dashboard. Both experts and novices are welcome to contribute to the project and help improve its functionality and usability.
 
 - shiny
 - matplotlib
